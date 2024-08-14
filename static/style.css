@@ -116,3 +116,20 @@ a:hover{
         margin-bottom: 15px;
     }
 }
+
+/* Hide spin buttons in Chrome, Safari, Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide spin buttons in Firefox */
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+/* Hide spin buttons in Internet Explorer 10+ */
+input[type="number"]::-ms-clear {
+    display: none;
+}
