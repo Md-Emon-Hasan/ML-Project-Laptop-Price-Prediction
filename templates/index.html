@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Price Predictor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to external CSS -->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>Laptop Price Predictor</h1>
+        <h2>Made by Emon Hasan</h2>
+        <form action="/predict" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="company">Brand:</label>
+                    <select name="company" id="company" class="form-control">
+                        {% for brand in companies %}
+                            <option value="{{ brand }}">{{ brand }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="type">Type:</label>
+                    <select name="type" id="type" class="form-control">
+                        {% for type in types %}
+                            <option value="{{ type }}">{{ type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="ram">RAM (in GB):</label>
+                    <select name="ram" id="ram" class="form-control">
+                        <option value="2">2</option>
+                        <option value="4">4</option>
+                        <option value="6">6</option>
+                        <option value="8">8</option>
+                        <option value="12">12</option>
+                        <option value="16">16</option>
+                        <option value="24">24</option>
+                        <option value="32">32</option>
+                        <option value="64">64</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="weight">Weight of the Laptop (in kg):</label>
+                    <input type="number" step="0.1" name="weight" id="weight" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="touchscreen">Touchscreen:</label>
+                    <select name="touchscreen" id="touchscreen" class="form-control">
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="ips">IPS:</label>
+                    <select name="ips" id="ips" class="form-control">
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="screen_size">Screen Size (in inches):</label>
+                    <input type="number" step="0.1" name="screen_size" id="screen_size" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="resolution">Screen Resolution:</label>
+                    <select name="resolution" id="resolution" class="form-control">
+                        <option value="1366x768">1366x768</option>
+                        <option value="1600x900">1600x900</option>
+                        <option value="1920x1080">1920x1080</option>
+                        <option value="2304x1440">2304x1440</option>
+                        <option value="2560x1440">2560x1440</option>
+                        <option value="2560x1600">2560x1600</option>
+                        <option value="2880x1800">2880x1800</option>
+                        <option value="3200x1800">3200x1800</option>
+                        <option value="3840x2160">3840x2160</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="cpu">CPU:</label>
+                    <select name="cpu" id="cpu" class="form-control">
+                        {% for cpu in cpus %}
+                            <option value="{{ cpu }}">{{ cpu }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="hdd">HDD (in GB):</label>
+                    <select name="hdd" id="hdd" class="form-control">
+                        <option value="0">0</option>
+                        <option value="128">128</option>
+                        <option value="256">256</option>
+                        <option value="512">512</option>
+                        <option value="1024">1024</option>
+                        <option value="2048">2048</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="ssd">SSD (in GB):</label>
+                    <select name="ssd" id="ssd" class="form-control">
+                        <option value="0">0</option>
+                        <option value="128">128</option>
+                        <option value="256">256</option>
+                        <option value="512">512</option>
+                        <option value="1024">1024</option>
+                        <option value="2048">2048</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="gpu">GPU:</label>
+                    <select name="gpu" id="gpu" class="form-control">
+                        {% for gpu in gpus %}
+                            <option value="{{ gpu }}">{{ gpu }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="os">Operating System:</label>
+                    <select name="os" id="os" class="form-control">
+                        {% for os in os_list %}
+                            <option value="{{ os }}">{{ os }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Predict Price</button>
+        </form>
+
+        {% if price %}
+        <h2 class="last">The predicted price of this configuration is &#8377; {{ price }} INR</h2>
+        {% endif %}
+
+        {% if prediction is not none %}
+            <div class="mt-4">
+                <p><strong>Brand:</strong> {{ company }}</p>
+                <p><strong>Type:</strong> {{ type }}</p>
+                <p><strong>RAM:</strong> {{ ram }} GB</p>
+                <p><strong>Weight:</strong> {{ weight }} kg</p>
+                <p><strong>Touchscreen:</strong> {{ touchscreen }}</p>
+                <p><strong>IPS:</strong> {{ ips }}</p>
+                <p><strong>Screen Size:</strong> {{ screen_size }} inches</p>
+                <p><strong>Screen Resolution:</strong> {{ resolution }}</p>
+                <p><strong>CPU:</strong> {{ cpu }}</p>
+                <p><strong>HDD:</strong> {{ hdd }} GB</p>
+                <p><strong>SSD:</strong> {{ ssd }} GB</p>
+                <p><strong>GPU:</strong> {{ gpu }}</p>
+                <p><strong>OS:</strong> {{ os }} </p>
+                <p><strong>Predicted Price:</strong> &#8377; {{ price }} INR</p>
+            </div>
+        {% endif %}
+    </div>
+    <div class="footer">
+        <p>&copy; 2024<a href="https://github.com/Md-Emon-Hasan"> Emon Hasan</a> | All rights reserved.</p>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
