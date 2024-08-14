@@ -2,7 +2,7 @@
 
 Welcome to the **Laptop Price Prediction** repository! This project utilizes machine learning techniques to predict laptop prices based on various features such as brand, specifications, and other attributes.
 
-![Capture](https://github.com/user-attachments/assets/872f715c-5cfe-4494-8c4f-f237a1ce1ed2)
+![https://laptop-price-prediction-2bab.onrender.com/](https://github.com/user-attachments/assets/872f715c-5cfe-4494-8c4f-f237a1ce1ed2)
 
 ## 📋 Contents
 
@@ -84,7 +84,7 @@ To get started with this project, follow these steps:
 
 ## 🎉 Live Demo
 
-Check out the live version of the Laptop Price Predictor app [here](https://laptop-price-predictor.onrender.com/).
+Check out the live version of the Laptop Price Predictor app [here](https://laptop-price-prediction-2bab.onrender.com/).
 
 ---
 
